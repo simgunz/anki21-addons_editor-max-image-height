@@ -36,5 +36,5 @@ http://www.gnu.org/copyleft/gpl.html
 References
 =============
 
-* [Anki plugin page] (https://ankiweb.net/shared/info/229181581)
-* [Github page] (https://github.com/simgunz/anki21-addons_editor-max-image-height)
+* [Anki plugin page](https://ankiweb.net/shared/info/229181581)
+* [Github page](https://github.com/simgunz/anki21-addons_editor-max-image-height)
