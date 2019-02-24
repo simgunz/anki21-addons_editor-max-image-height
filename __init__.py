@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #########################################################################
-# Copyright (C) 2018 by Simone Gaiarin <simgunz@gmail.com>              #
+# Copyright (C) 2018-2019 by Simone Gaiarin <simgunz@gmail.com>         #
 #                                                                       #
 # This program is free software; you can redistribute it and/or modify  #
 # it under the terms of the GNU General Public License as published by  #
@@ -15,11 +15,14 @@
 # You should have received a copy of the GNU General Public License     #
 # along with this program; if not, see <http://www.gnu.org/licenses/>.  #
 #########################################################################
-from anki.hooks import addHook
-from aqt import mw
+from anki.hooks import wrap
 
-def setMaxImageHeight(editor):
-    config = mw.addonManager.getConfig(__name__)
-    editor.web.eval('$("#fields img").css("max-height","{0}");'.format(config['max-height']))
-    
-addHook("loadNote", setMaxImageHeight)
+from aqt.editor import Editor
+
+def setBrowserMaxImageHeight(self):
+    config = self.mw.addonManager.getConfig(__name__)
+    self.web.eval('''$('head').append('<style type="text/css">'''
+                  '''#fields img{{ max-height: {height};}}</style>')'''
+                  .format(height=config['max-height']))
+
+Editor.setupWeb = wrap(Editor.setupWeb, setBrowserMaxImageHeight)
