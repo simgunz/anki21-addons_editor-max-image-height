@@ -1,5 +1,6 @@
 {
-"max-height": "200px",
 "height_or_width": "width",
-"max-width": "200px"
+"max-height": "200px",
+"max-width": "200px",
+"both": "200px"
 } 
