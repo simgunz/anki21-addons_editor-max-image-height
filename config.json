@@ -1,1 +1,5 @@
-{"max-height": "200px"} 
+{
+    "height_or_width": "height",
+    "max-height": "200px",
+    "max-width": "200px"
+} 

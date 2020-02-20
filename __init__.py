@@ -21,8 +21,18 @@ from aqt.editor import Editor
 
 def setBrowserMaxImageHeight(self):
     config = self.mw.addonManager.getConfig(__name__)
-    self.web.eval('''$('head').append('<style type="text/css">'''
-                  '''#fields img{{ max-height: {height};}}</style>')'''
-                  .format(height=config['max-height']))
+    if config['height_or_width'] == "height":
+        self.web.eval('''$('head').append('<style type="text/css">'''
+                      '''#fields img{{ max-height: {height};}}</style>')'''
+                      .format(height=config['max-height']))
+    elif config['height_or_width'] == "width":
+        self.web.eval('''$('head').append('<style type="text/css">'''
+                      '''#fields img{{ max-width: {width};}}</style>')'''
+                      .format(width=config['max-width']))
+    elif config['height_or_width'] == "both":
+        self.web.eval('''$('head').append('<style type="text/css">'''
+                      '''#fields img{{ max-width: {width}; max-height: {height};}}</style>')'''
+                      .format(width=config['max-width'], height=config['max-height']))
+
 
 Editor.setupWeb = wrap(Editor.setupWeb, setBrowserMaxImageHeight)
