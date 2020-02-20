@@ -1,5 +1,5 @@
-Maximum image height and width in card editor
-=============================================
+Anki addon: maximum image height and width in card editor
+=========================================================
 This add-on allows limiting the height or width of the images displayed in the Anki card
 editor so that all the fields are (possibly) visible together.
 
@@ -15,5 +15,5 @@ http://www.gnu.org/copyleft/gpl.html
 
 References
 =============
-- [Anki addon] (https://ankiweb.net/shared/info/229181581)
-- [Blog post] (http://simgunz.org/anki-add-on-maximum-height-for-images-in-deck-browser/)
+- [Anki addon page](https://ankiweb.net/shared/info/229181581)
+- [Blog post](http://simgunz.org/anki-add-on-maximum-height-for-images-in-deck-browser/)
