@@ -31,8 +31,8 @@ def setBrowserMaxImageHeight(self):
                       .format(width=config['max-width']))
     elif config['height_or_width'] == "both":
         self.web.eval('''$('head').append('<style type="text/css">'''
-                      '''#fields img{{ max-width: {width}; max-height: {width};}}</style>')'''
-                      .format(width=config['both']))                      
+                      '''#fields img{{ max-width: {width}; max-height: {height};}}</style>')'''
+                      .format(width=config['max-width'], height=config['max-height']))
 
 
 Editor.setupWeb = wrap(Editor.setupWeb, setBrowserMaxImageHeight)
