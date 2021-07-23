@@ -49,6 +49,7 @@ def createStyleTag(selector, dimension, maxWidth, maxHeight):
         imgCss = f"max-width: {maxWidth}; max-height: {maxHeight};"
     else:
         print(f"max-image-height: invalid value '{dimension}' for 'height_or_width'")
+        return ""
     return f'<style type="text/css">{selector} img{{ {imgCss} }}</style>'
 
 if version >= "2.1.41":
