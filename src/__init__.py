@@ -15,17 +15,32 @@
 # You should have received a copy of the GNU General Public License     #
 # along with this program; if not, see <http://www.gnu.org/licenses/>.  #
 #########################################################################
+from anki.buildinfo import version
 from anki.hooks import wrap
 from aqt.editor import Editor
 
 
+def setBrowserImageMaxDimensionsShadowRoot(self):
+    config = self.mw.addonManager.getConfig(__name__)
+    styleTag = createStyleTag('anki-editable', config['height_or_width'], config['max-width'], config['max-height'])
+    self.web.eval(
+        """
+        $(document).ready(function() {{
+            const shadowFields = $('div.field').filter((index, element) => element.shadowRoot !== undefined);
+            shadowFields.each((index, element) => {{
+                $(element.shadowRoot).prepend('{0}');
+            }});
+        }});
+        """.format(styleTag)
+    )
+
 def setBrowserImageMaxDimensions(self):
     config = self.mw.addonManager.getConfig(__name__)
-    styleTag = createStyleTag(config['height_or_width'], config['max-width'], config['max-height'])
+    styleTag = createStyleTag('#fields', config['height_or_width'], config['max-width'], config['max-height'])
     self.web.eval(f"""$('head').append('{styleTag}')""")
 
 
-def createStyleTag(dimension, maxWidth, maxHeight):
+def createStyleTag(selector, dimension, maxWidth, maxHeight):
     if dimension == "width":
         imgCss = f"max-width: {maxWidth};"
     if dimension == "height":
@@ -34,7 +49,9 @@ def createStyleTag(dimension, maxWidth, maxHeight):
         imgCss = f"max-width: {maxWidth}; max-height: {maxHeight};"
     else:
         print(f"max-image-height: invalid value '{dimension}' for 'height_or_width'")
-    return f'<style type="text/css">#fields img{{ {imgCss} }}</style>'
+    return f'<style type="text/css">{selector} img{{ {imgCss} }}</style>'
 
-
-Editor.setupWeb = wrap(Editor.setupWeb, setBrowserImageMaxDimensions)
+if version >= "2.1.41":
+    Editor.setupWeb = wrap(Editor.setupWeb, setBrowserImageMaxDimensionsShadowRoot)
+else:
+    Editor.setupWeb = wrap(Editor.setupWeb, setBrowserImageMaxDimensions)
