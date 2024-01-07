@@ -20,5 +20,5 @@ jobs:
           days-before-pr-stale: -1
           days-before-pr-close: -1
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          only-labels: "needs info"
+          only-labels: "needs-info"
 
